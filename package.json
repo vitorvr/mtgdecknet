@@ -1,0 +1,16 @@
+{
+  "name": "mtgdecknet",
+  "version": "1.0.0",
+  "description": "MTG Decks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vitor Vianna Ribeiro",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19"
+  }
+}
