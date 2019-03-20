@@ -3,10 +3,16 @@ const router = express.Router();
 
 const Deck = require('../../models/Deck');
 
+// @route   GET api/deck
+// @desc    Get all decks by user
+// @access  Private
 router.get('/', (req, res) => {
-  Deck.find().then(decks => res.json(decks));
+  Deck.find().then(decks => res.status(200).json(decks));
 });
 
+// @route   POST api/deck
+// @desc    Create new deck
+// @access  Private
 router.post('/', (req, res) => {
   let cardList = createCardList(req.body.cardlist);
   let colorIdentity = checkColorIdentity(req.body.cardlist);
@@ -20,7 +26,7 @@ router.post('/', (req, res) => {
 
   newDeck
     .save()
-    .then(deck => res.json(deck))
+    .then(deck => res.status(200).json(deck))
     .catch(err => console.log(err));
 });
 
@@ -28,9 +34,7 @@ const createCardList = cardlist => {
   let finalCardlist = [];
 
   for (let item of cardlist) {
-    let card = {
-      mtgarena: {}
-    };
+    let card = {};
 
     card.quantity = item.quantity;
     card.name = item.card.name;
@@ -47,10 +51,9 @@ const createCardList = cardlist => {
     card.imageUrl = item.card.imageUrl;
     card.multiverseid = item.card.multiverseid;
     //MTG Arena
-    card.mtgarena.quantity = item.quantity;
-    card.mtgarena.name = item.card.name;
-    card.mtgarena.set = item.card.set;
-    card.mtgarena.setId = item.card.number;
+    card.mtgarena = `${item.quantity} ${item.card.name} (${item.card.set}) ${
+      item.card.number
+    }`;
 
     finalCardlist.push(card);
   }

@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://vitorvr:kb8px012@mtgdecknet-a2vmv.mongodb.net/test?retryWrites=true"
+  "mongoURI": "mongodb+srv://vitorvr:kb8px012@mtgdecknet-a2vmv.mongodb.net/test?retryWrites=true",
+  "secret": "mtgdecknetSecret1235"
 }

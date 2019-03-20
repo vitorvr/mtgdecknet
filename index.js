@@ -11,12 +11,12 @@ mongoose
   .connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true
-  }) // Adding new mongo url parser
+  })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-// Use Routes
 app.use('/api/deck', require('./routes/api/decks'));
+app.use('/api/user', require('./routes/api/users'));
 
 const port = process.env.PORT || 3000;
 
