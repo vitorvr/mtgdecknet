@@ -31,11 +31,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions(["retrieveToken"]),
 
     submitLogin(e) {
       e.preventDefault();
-      this.login({
+      this.retrieveToken({
         email: this.email,
         password: this.password
       }).then(this.$router.push({ name: "decks" }));
