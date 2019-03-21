@@ -2,24 +2,27 @@ const express = require('express');
 const router = express.Router();
 
 const Deck = require('../../models/Deck');
+const User = require('../../models/User');
+const auth = require('../../middleware/auth');
 
 // @route   GET api/deck
 // @desc    Get all decks by user
 // @access  Private
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   Deck.find().then(decks => res.status(200).json(decks));
 });
 
 // @route   POST api/deck
 // @desc    Create new deck
 // @access  Private
-router.post('/', (req, res) => {
+router.post('/', auth, async (req, res) => {
   let cardList = createCardList(req.body.cardlist);
   let colorIdentity = checkColorIdentity(req.body.cardlist);
+  let userProfile = await getUser(req.user.id);
 
   let newDeck = new Deck({
     name: req.body.deckname,
-    userId: 'Vitor',
+    userProfile,
     colorIdentity,
     cardList
   });
@@ -80,6 +83,11 @@ const checkColorIdentity = cardlist => {
   }
 
   return colorIdentity;
+};
+
+const getUser = async id => {
+  let userProfile = await User.findById(id).select('_id name email');
+  return userProfile;
 };
 
 module.exports = router;

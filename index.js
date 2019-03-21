@@ -5,10 +5,10 @@ const mongoose = require('mongoose');
 const app = express();
 
 app.use(express.json());
-const db = config.get('mongoURI');
+const mongoURI = config.get('mongoURI');
 
 mongoose
-  .connect(db, {
+  .connect(mongoURI, {
     useNewUrlParser: true,
     useCreateIndex: true
   })
@@ -17,7 +17,8 @@ mongoose
 
 app.use('/api/deck', require('./routes/api/decks'));
 app.use('/api/user', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server listenning on port ${port}...`));
+app.listen(port, () => console.log(`Server listening on port ${port}...`));

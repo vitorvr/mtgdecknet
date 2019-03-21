@@ -6,8 +6,8 @@ const DeckSchema = new Schema({
     type: String,
     required: true
   },
-  userId: {
-    type: String,
+  userProfile: {
+    type: 'Mixed',
     required: true
   },
   colorIdentity: {
