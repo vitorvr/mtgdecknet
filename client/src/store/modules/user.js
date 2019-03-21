@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const state = {
   user: {},
-  token: ''
+  token: localStorage.getItem('token') || null
 };
 
 const getters = {
@@ -10,15 +10,7 @@ const getters = {
 };
 
 const actions = {
-  // async login({ commit }, credentials) {
-  //   const response = await axios.post('/api/auth', {
-  //     email: credentials.email,
-  //     password: credentials.password
-  //   });
-
-  //   commit('login', response.data);
-  // },
-  retrieveToken({ commit }, credentials) {
+  login({ commit }, credentials) {
     return new Promise(async (resolve, reject) => {
       const response = await axios.post('/api/auth', {
         email: credentials.email,
@@ -28,8 +20,8 @@ const actions = {
       if (!response) reject(response);
 
       commit('login', response.data);
-
       localStorage.setItem('token', response.data.token);
+
       resolve(response);
     });
   }
